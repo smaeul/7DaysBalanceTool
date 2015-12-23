@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="blocks" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="blocks">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="block">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="property">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="property">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                        <xs:attribute name="value" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                  <xs:attribute name="name" type="xs:string"/>
+                  <xs:attribute name="value" type="xs:string"/>
+                  <xs:attribute name="class" type="xs:string"/>
+                  <xs:attribute name="count" type="xs:string"/>
+                  <xs:attribute name="param1" type="xs:string"/>
+                  <xs:attribute name="param2" type="xs:string"/>
+                  <xs:attribute name="prob" type="xs:decimal"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="drop">
+                <xs:complexType>
+                  <xs:attribute name="count" type="xs:string" use="required"/>
+                  <xs:attribute name="event" type="xs:string" use="required"/>
+                  <xs:attribute name="name" type="xs:string" use="required"/>
+                  <xs:attribute name="prob" type="xs:decimal" use="required"/>
+                  <xs:attribute name="stick_chance" type="xs:decimal"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:positiveInteger" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

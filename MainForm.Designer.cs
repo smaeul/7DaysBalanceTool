@@ -46,7 +46,8 @@
             // 
             // actionsBox
             // 
-            this.actionsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.actionsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
+                System.Windows.Forms.AnchorStyles.Right));
             this.actionsBox.Location = new System.Drawing.Point(637, 27);
             this.actionsBox.Name = "actionsBox";
             this.actionsBox.Size = new System.Drawing.Size(240, 526);
@@ -57,11 +58,13 @@
             // 
             // blockDataGrid
             // 
-            this.blockDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.blockDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
+                System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left |
+                System.Windows.Forms.AnchorStyles.Right));
             this.blockDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.blockDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.blockDataGrid.DataMember = "block";
+            this.blockDataGrid.DataSource = this.blockData;
             this.blockDataGrid.Location = new System.Drawing.Point(0, 24);
             this.blockDataGrid.Name = "blockDataGrid";
             this.blockDataGrid.Size = new System.Drawing.Size(630, 536);
@@ -70,8 +73,7 @@
             // 
             // editMenu
             // 
-            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.materialsEditMenuItem});
+            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.materialsEditMenuItem });
             this.editMenu.Name = "editMenu";
             this.editMenu.Size = new System.Drawing.Size(39, 20);
             this.editMenu.Text = "Edit";
@@ -82,15 +84,13 @@
             this.exitFileMenuItem.Name = "exitFileMenuItem";
             this.exitFileMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitFileMenuItem.Text = "E&xit";
+            this.exitFileMenuItem.Click += new System.EventHandler(this.exitFileMenuItem_Click);
 
             // 
             // fileMenu
             // 
-            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openFileMenuItem,
-            this.saveFileMenuItem,
-            this.fileMenuSeparator,
-            this.exitFileMenuItem});
+            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.openFileMenuItem,
+                this.saveFileMenuItem, this.fileMenuSeparator, this.exitFileMenuItem });
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(37, 20);
             this.fileMenu.Text = "&File";
@@ -104,9 +104,8 @@
             // 
             // mainMenu
             // 
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenu,
-            this.editMenu});
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.fileMenu,
+                this.editMenu });
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
@@ -126,6 +125,7 @@
             this.openFileMenuItem.Name = "openFileMenuItem";
             this.openFileMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openFileMenuItem.Text = "&Open";
+            this.openFileMenuItem.Click += new System.EventHandler(this.openFileMenuItem_Click);
 
             // 
             // saveFileMenuItem
@@ -133,6 +133,7 @@
             this.saveFileMenuItem.Name = "saveFileMenuItem";
             this.saveFileMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveFileMenuItem.Text = "&Save";
+            this.saveFileMenuItem.Click += new System.EventHandler(this.saveFileMenuItem_Click);
 
             // 
             // MainForm
