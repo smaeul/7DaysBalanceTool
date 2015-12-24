@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.actionsBox = new System.Windows.Forms.GroupBox();
+            this.blockData = new System.Data.DataSet();
             this.blockDataGrid = new System.Windows.Forms.DataGridView();
             this.editMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.exitFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,7 @@
             this.materialsEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
+            
             ((System.ComponentModel.ISupportInitialize)(this.blockDataGrid)).BeginInit();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +55,12 @@
             this.actionsBox.TabIndex = 0;
             this.actionsBox.TabStop = false;
             this.actionsBox.Text = "Actions";
+
+            // 
+            // blockData
+            // 
+            this.blockData.DataSetName = "blocks";
+            this.blockData.ReadXmlSchema(System.Reflection.Assembly.GetAssembly(System.Type.GetType("_7DaysBalanceTool.MainForm")).GetManifestResourceStream("_7DaysBalanceTool.blocks.xsd"));
 
             // 
             // blockDataGrid
@@ -148,7 +155,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 600);
             this.Name = "MainForm";
             this.Text = "Balance Tool";
-
+            
             ((System.ComponentModel.ISupportInitialize)(this.blockDataGrid)).EndInit();
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -159,6 +166,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox actionsBox;
+        private System.Data.DataSet blockData;
         private System.Windows.Forms.DataGridView blockDataGrid;
         private System.Windows.Forms.ToolStripMenuItem editMenu;
         private System.Windows.Forms.ToolStripMenuItem exitFileMenuItem;

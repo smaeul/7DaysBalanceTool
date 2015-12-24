@@ -15,9 +15,6 @@ namespace _7DaysBalanceTool
     {
         public MainForm()
         {
-            this.blockData = new DataSet();
-            blockData.ReadXmlSchema("blocks.xsd");
-            blockData.EnforceConstraints = false;
 
             InitializeComponent();
         }
@@ -47,7 +44,5 @@ namespace _7DaysBalanceTool
                 blockData.WriteXml(save.FileName);
             }
         }
-
-        private DataSet blockData;
     }
 }
