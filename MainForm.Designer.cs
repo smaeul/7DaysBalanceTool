@@ -34,14 +34,17 @@
             this.blockDataGridLabel = new System.Windows.Forms.Label();
             this.editMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.exitFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.fileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.itemsEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.materialsEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherPropertiesBox = new System.Windows.Forms.ListBox();
             this.otherPropertiesLabel = new System.Windows.Forms.Label();
-            this.propertiesLabel = new System.Windows.Forms.Label();
+            this.propertiesBox = new System.Windows.Forms.GroupBox();
             this.saveFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             
             ((System.ComponentModel.ISupportInitialize)(this.blockDataGrid)).BeginInit();
@@ -100,29 +103,50 @@
             // 
             // editMenu
             // 
-            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.materialsEditMenuItem });
+            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.itemsEditMenuItem,
+                this.materialsEditMenuItem });
             this.editMenu.Name = "editMenu";
-            this.editMenu.Text = "Edit";
+            this.editMenu.Text = "&Edit";
 
             // 
             // exitFileMenuItem
             // 
             this.exitFileMenuItem.Name = "exitFileMenuItem";
+            this.exitFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
             this.exitFileMenuItem.Text = "E&xit";
             this.exitFileMenuItem.Click += new System.EventHandler(this.exitFileMenuItem_Click);
+            
+            // 
+            // exportFileMenuItem
+            // 
+            this.exportFileMenuItem.Name = "exportFileMenuItem";
+            this.exportFileMenuItem.Text = "&Export";
 
             // 
             // fileMenu
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.openFileMenuItem,
-                this.saveFileMenuItem, this.fileMenuSeparator, this.exitFileMenuItem });
+                this.saveFileMenuItem, this.fileMenuSeparator1, this.exportFileMenuItem, this.fileMenuSeparator2,
+                this.exitFileMenuItem });
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Text = "&File";
 
             // 
-            // fileMenuSeparator
+            // fileMenuSeparator1
             // 
-            this.fileMenuSeparator.Name = "fileMenuSeparator";
+            this.fileMenuSeparator1.Name = "fileMenuSeparator1";
+
+            // 
+            // fileMenuSeparator2
+            // 
+            this.fileMenuSeparator2.Name = "fileMenuSeparator2";
+
+            // 
+            // itemsEditMenuItem
+            // 
+            this.itemsEditMenuItem.Name = "itemsEditMenuItem";
+            this.itemsEditMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I;
+            this.itemsEditMenuItem.Text = "&Items";
 
             // 
             // mainMenu
@@ -138,12 +162,14 @@
             // materialsEditMenuItem
             // 
             this.materialsEditMenuItem.Name = "materialsEditMenuItem";
+            this.materialsEditMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M;
             this.materialsEditMenuItem.Text = "&Materials";
 
             // 
             // openFileMenuItem
             // 
             this.openFileMenuItem.Name = "openFileMenuItem";
+            this.openFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O;
             this.openFileMenuItem.Text = "&Open";
             this.openFileMenuItem.Click += new System.EventHandler(this.openFileMenuItem_Click);
 
@@ -166,16 +192,20 @@
             this.otherPropertiesLabel.Text = "Other Properties";
 
             // 
-            // propertiesLabel
+            // propertiesBox
             // 
-            this.propertiesLabel.Location = new System.Drawing.Point(320, 27);
-            this.propertiesLabel.Name = "propertiesLabel";
-            this.propertiesLabel.Text = "Common Properties";
+            this.propertiesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
+                System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
+            this.propertiesBox.Location = new System.Drawing.Point(320, 27);
+            this.propertiesBox.Name = "propertiesBox";
+            this.propertiesBox.Size = new System.Drawing.Size(300, 294);
+            this.propertiesBox.Text = "Common Properties";
 
             // 
             // saveFileMenuItem
             // 
             this.saveFileMenuItem.Name = "saveFileMenuItem";
+            this.saveFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
             this.saveFileMenuItem.Text = "&Save";
             this.saveFileMenuItem.Click += new System.EventHandler(this.saveFileMenuItem_Click);
 
@@ -191,7 +221,7 @@
             this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.otherPropertiesBox);
             this.Controls.Add(this.otherPropertiesLabel);
-            this.Controls.Add(this.propertiesLabel);
+            this.Controls.Add(this.propertiesBox);
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(896, 600);
             this.Name = "MainForm";
@@ -212,14 +242,17 @@
         private System.Windows.Forms.Label blockDataGridLabel;
         private System.Windows.Forms.ToolStripMenuItem editMenu;
         private System.Windows.Forms.ToolStripMenuItem exitFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
-        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator;
+        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator1;
+        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem itemsEditMenuItem;
         private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem materialsEditMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileMenuItem;
         private System.Windows.Forms.ListBox otherPropertiesBox;
         private System.Windows.Forms.Label otherPropertiesLabel;
-        private System.Windows.Forms.Label propertiesLabel;
+        private System.Windows.Forms.GroupBox propertiesBox;
         private System.Windows.Forms.ToolStripMenuItem saveFileMenuItem;
     }
 }
