@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace _7DaysBalanceTool
 {
@@ -17,6 +18,16 @@ namespace _7DaysBalanceTool
         {
 
             InitializeComponent();
+        }
+
+        private void blockDataGrid_Select(object sender, EventArgs e)
+        {
+            if (this.blockDataGrid.CurrentRow == null) return;
+
+            this.otherPropertiesBox.Items.Clear();
+            foreach (DataRow row in (this.blockDataGrid.CurrentRow.DataBoundItem as DataRowView).Row.GetChildRows(this.blockData.Relations["block_property"])) {
+                this.otherPropertiesBox.Items.Add(row.Field<String>("name") + " = " + row.Field<String>("value"));
+            }
         }
 
         private void exitFileMenuItem_Click(object sender, EventArgs e)
@@ -30,8 +41,23 @@ namespace _7DaysBalanceTool
             open.Filter = "XML files (*.xml)|*.xml";
 
             if (open.ShowDialog() == DialogResult.OK) {
-                blockData.Clear();
-                blockData.ReadXml(open.FileName);
+                /* Flatten recursive class/name property element groups to class.name property elements */
+                XDocument doc = XDocument.Load(open.FileName);
+                foreach (XElement property in doc.XPathSelectElements("/blocks/block/property/property").ToList()) {
+                    XElement propertyGroup = property.Parent, block = propertyGroup.Parent;
+                    block.Add(new XElement("property", new XAttribute("name", propertyGroup.Attribute("class").Value + "." + property.Attribute("name").Value), property.Attribute("value")));
+                    property.Remove();
+                    if (!propertyGroup.HasElements) {
+                        propertyGroup.Remove();
+                    }
+                }
+
+                this.blockData.Clear();
+                this.blockData.ReadXml(doc.CreateReader());
+                /* Resize columns, then turn off autosizing to avoid columns changing width when sorted */
+                this.blockDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                this.blockDataGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                this.blockDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
             }
         }
 
@@ -41,7 +67,7 @@ namespace _7DaysBalanceTool
             save.Filter = "XML files (*.xml)|*.xml";
 
             if (save.ShowDialog() == DialogResult.OK) {
-                blockData.WriteXml(save.FileName);
+                this.blockData.WriteXml(save.FileName);
             }
         }
     }

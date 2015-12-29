@@ -88,6 +88,7 @@
             this.blockDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.blockDataGrid.Size = new System.Drawing.Size(312, 514);
             this.blockDataGrid.StandardTab = true;
+            this.blockDataGrid.SelectionChanged += new System.EventHandler(blockDataGrid_Select);
 
             // 
             // blockDataGridLabel
