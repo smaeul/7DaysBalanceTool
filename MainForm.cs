@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -33,6 +34,31 @@ namespace _7DaysBalanceTool
         private void exitFileMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void exportFileMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Wiki Markup (*.txt)|*.txt";
+            /* Should display dialog to filter blocks, filling in the list; for now include all */
+            List<ulong> selectedBlocks = new List<ulong>(this.blockData.Tables["block"].AsEnumerable().Select(row => row.Field<ulong>("id")));
+            
+            if (save.ShowDialog() == DialogResult.OK) {
+                StreamWriter output = new StreamWriter(save.OpenFile());
+                output.WriteLine("{| class=\"wikitable sortable\"");
+                output.WriteLine("|-");
+                output.WriteLine("! Name !! HP !! Hardness !! Downgrades To !! Upgrades To !! Mass !! Max Load !! Structural Integrity");
+                foreach (DataRow row in this.blockData.Tables["block"].AsEnumerable().Where(row => selectedBlocks.Contains(row.Field<ulong>("id")))) {
+                    DataRow[] properties = row.GetChildRows(this.blockData.Relations["block_property"]);
+                    output.WriteLine("|-");
+                    output.Write("| " + row.Field<String>("name") + " || Unknown || Unknown || ");
+                    output.Write(properties.Where(p => p.Field<String>("name") == "DowngradeBlock").SingleOrDefault()?.Field<String>("value"));
+                    output.Write(" || " + properties.Where(p => p.Field<String>("name") == "UpgradeBlock.ToBlock").SingleOrDefault()?.Field<String>("value"));
+                    output.WriteLine(" || Unknown || Unknown || Unknown ");
+                }
+                output.WriteLine("|}");
+                output.Close();
+            }
         }
 
         private void openFileMenuItem_Click(object sender, EventArgs e)

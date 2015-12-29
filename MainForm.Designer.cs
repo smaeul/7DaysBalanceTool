@@ -121,6 +121,7 @@
             // 
             this.exportFileMenuItem.Name = "exportFileMenuItem";
             this.exportFileMenuItem.Text = "&Export";
+            this.exportFileMenuItem.Click += new System.EventHandler(this.exportFileMenuItem_Click);
 
             // 
             // fileMenu
