@@ -17,18 +17,16 @@ namespace _7DaysBalanceTool
     {
         public MainForm()
         {
-
             InitializeComponent();
         }
 
         private void blockDataGrid_Select(object sender, EventArgs e)
         {
-            if (this.blockDataGrid.CurrentRow == null) return;
+            // This event fires when adding the first row to the DataSet, before any data is added. It also fires when selecting the empty row at the end used for adding new records.
+            if (this.blockList.CurrentRow == null || this.blockList.CurrentRow.DataBoundItem == null) return;
 
-            this.otherPropertiesBox.Items.Clear();
-            foreach (DataRow row in (this.blockDataGrid.CurrentRow.DataBoundItem as DataRowView).Row.GetChildRows(this.blockData.Relations["block_property"])) {
-                this.otherPropertiesBox.Items.Add(row.Field<String>("name") + " = " + row.Field<String>("value"));
-            }
+            this.propertiesList.Items.Clear();
+            this.propertiesList.Items.AddRange(((this.blockList.CurrentRow.DataBoundItem as DataRowView).Row.GetChildRows(this.blocks.Relations["block_property"]) as blocks.propertyRow[]).Select(prop => prop.name + " = " + prop.value).ToArray());
         }
 
         private void exitFileMenuItem_Click(object sender, EventArgs e)
@@ -40,20 +38,20 @@ namespace _7DaysBalanceTool
         {
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Wiki Markup (*.txt)|*.txt";
-            /* Should display dialog to filter blocks, filling in the list; for now include all */
-            List<ulong> selectedBlocks = new List<ulong>(this.blockData.Tables["block"].AsEnumerable().Select(row => row.Field<ulong>("id")));
-            
+            // Should display dialog to filter blocks, filling in the list; for now include all.
+            List<UInt32> selectedBlocks = new List<UInt32>(this.blocks.block.Select(row => row.id));
+
             if (save.ShowDialog() == DialogResult.OK) {
                 StreamWriter output = new StreamWriter(save.OpenFile());
                 output.WriteLine("{| class=\"wikitable sortable\"");
                 output.WriteLine("|-");
                 output.WriteLine("! Name !! HP !! Hardness !! Downgrades To !! Upgrades To !! Mass !! Max Load !! Structural Integrity");
-                foreach (DataRow row in this.blockData.Tables["block"].AsEnumerable().Where(row => selectedBlocks.Contains(row.Field<ulong>("id")))) {
-                    DataRow[] properties = row.GetChildRows(this.blockData.Relations["block_property"]);
+                foreach (blocks.blockRow block in this.blocks.block.Where(row => selectedBlocks.Contains(row.id))) {
+                    blocks.propertyRow[] properties = block.GetChildRows(this.blocks.Relations["block_property"]) as blocks.propertyRow[];
                     output.WriteLine("|-");
-                    output.Write("| " + row.Field<String>("name") + " || Unknown || Unknown || ");
-                    output.Write(properties.Where(p => p.Field<String>("name") == "DowngradeBlock").SingleOrDefault()?.Field<String>("value"));
-                    output.Write(" || " + properties.Where(p => p.Field<String>("name") == "UpgradeBlock.ToBlock").SingleOrDefault()?.Field<String>("value"));
+                    output.Write("| " + block.name + " || Unknown || Unknown || ");
+                    output.Write(properties.Where(prop => prop.name == "DowngradeBlock").SingleOrDefault()?.value);
+                    output.Write(" || " + properties.Where(prop => prop.name == "UpgradeBlock.ToBlock").SingleOrDefault()?.value);
                     output.WriteLine(" || Unknown || Unknown || Unknown ");
                 }
                 output.WriteLine("|}");
@@ -67,7 +65,7 @@ namespace _7DaysBalanceTool
             open.Filter = "XML files (*.xml)|*.xml";
 
             if (open.ShowDialog() == DialogResult.OK) {
-                /* Flatten recursive class/name property element groups to class.name property elements */
+                // Flatten recursive class/name property element groups to class.name property elements.
                 XDocument doc = XDocument.Load(open.FileName);
                 foreach (XElement property in doc.XPathSelectElements("/blocks/block/property/property").ToList()) {
                     XElement propertyGroup = property.Parent, block = propertyGroup.Parent;
@@ -78,12 +76,13 @@ namespace _7DaysBalanceTool
                     }
                 }
 
-                this.blockData.Clear();
-                this.blockData.ReadXml(doc.CreateReader());
-                /* Resize columns, then turn off autosizing to avoid columns changing width when sorted */
-                this.blockDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                this.blockDataGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                this.blockDataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                // Sort the properties by name; do it now, so both the list in the UI and the saved file are sorted.
+                foreach (XElement block in doc.Root.Elements()) {
+                    block.ReplaceNodes(block.Elements().OrderBy(elem => elem.Name + (elem.Name == "drop" ? elem.Attribute("event").Value : elem.Attribute("name")?.Value ?? "z" + elem.Attribute("class")?.Value)));
+                }
+
+                this.blocks.Clear();
+                this.blocks.ReadXml(doc.CreateReader());
             }
         }
 
@@ -93,7 +92,32 @@ namespace _7DaysBalanceTool
             save.Filter = "XML files (*.xml)|*.xml";
 
             if (save.ShowDialog() == DialogResult.OK) {
-                this.blockData.WriteXml(save.FileName);
+                // Restore structure of recursive class/name property element groups from class.name property elements.
+                XDocument doc = XDocument.Load(new StringReader(this.blocks.GetXml()));
+                foreach (XElement property in doc.XPathSelectElements("/blocks/block/property[contains(@name, '.')]").Reverse().ToList()) {
+                    String[] propertyNameParts = property.Attribute("name").Value.Split('.');
+
+                    // Map.Color does not work unflattened, RepairItems does not work flattened... what to do?
+                    if (propertyNameParts[0] == "Map") continue;
+
+                    // Make sure there is a class element to attach this property element to.
+                    XElement classElement = property.Parent.Elements().Where(prop => prop.Attribute("class")?.Value == propertyNameParts[0]).SingleOrDefault();
+                    if (classElement == null) {
+                        classElement = new XElement("property", new XAttribute("class", propertyNameParts[0]));
+                        property.Parent.AddFirst(classElement);
+                    }
+
+                    // Move the property element to inside the class element.
+                    property.Remove();
+                    classElement.Add(property);
+
+                    // Rename the property to just the part after the dot.
+                    property.Attribute("name").Value = propertyNameParts[1];
+                }
+
+                // The game cannot handle a file starting with a BOM.
+                StreamWriter stream = new StreamWriter(save.FileName, false, new UTF8Encoding(false));
+                doc.Save(stream);
             }
         }
     }

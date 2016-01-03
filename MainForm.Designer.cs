@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,233 +27,281 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.actionsBox = new System.Windows.Forms.GroupBox();
-            this.blockData = new System.Data.DataSet();
-            this.blockDataGrid = new System.Windows.Forms.DataGridView();
-            this.blockDataGridLabel = new System.Windows.Forms.Label();
-            this.editMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.fileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.itemsEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.components = new System.ComponentModel.Container();
+            this.blocks = new _7DaysBalanceTool.blocks();
+            this.blockBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.materialsEditMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.otherPropertiesBox = new System.Windows.Forms.ListBox();
-            this.otherPropertiesLabel = new System.Windows.Forms.Label();
-            this.propertiesBox = new System.Windows.Forms.GroupBox();
-            this.saveFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            
-            ((System.ComponentModel.ISupportInitialize)(this.blockDataGrid)).BeginInit();
+            this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileMenuOpenItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileMenuSaveItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileMenuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileMenuExportItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileMenuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.fileMenuExitItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenuGroupsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenuItemsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenuMaterialsItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editMenuRecipesItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blockListLabel = new System.Windows.Forms.Label();
+            this.blockList = new System.Windows.Forms.DataGridView();
+            this.blockListIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.blockListNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.propertiesLabel = new System.Windows.Forms.Label();
+            this.propertiesList = new System.Windows.Forms.ListBox();
+            this.actionsGroup = new System.Windows.Forms.GroupBox();
+            ((System.ComponentModel.ISupportInitialize)(this.blocks)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blockBindingSource)).BeginInit();
             this.mainMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blockList)).BeginInit();
             this.SuspendLayout();
-
             // 
-            // actionsBox
+            // blocks
             // 
-            this.actionsBox.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
-                System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.actionsBox.Location = new System.Drawing.Point(624, 27);
-            this.actionsBox.Name = "actionsBox";
-            this.actionsBox.Size = new System.Drawing.Size(252, 530);
-            this.actionsBox.Text = "Actions";
-
+            this.blocks.DataSetName = "blocks";
+            this.blocks.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // blockData
+            // blockBindingSource
             // 
-            this.blockData.DataSetName = "blockData";
-            this.blockData.ReadXmlSchema(System.Reflection.Assembly.GetAssembly(System.Type.GetType("_7DaysBalanceTool.MainForm")).GetManifestResourceStream("_7DaysBalanceTool.blocks.xsd"));
-
+            this.blockBindingSource.DataMember = "block";
+            this.blockBindingSource.DataSource = this.blocks;
             // 
-            // blockDataGrid
+            // mainMenu
             // 
-            this.blockDataGrid.AllowUserToAddRows = false;
-            this.blockDataGrid.AllowUserToResizeColumns = false;
-            this.blockDataGrid.AllowUserToResizeRows = false;
-            this.blockDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
-                System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
-            this.blockDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.blockDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.None;
-            this.blockDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.blockDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.blockDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.blockDataGrid.DataMember = "block";
-            this.blockDataGrid.DataSource = this.blockData;
-            this.blockDataGrid.GridColor = System.Drawing.Color.LightGray;
-            this.blockDataGrid.Location = new System.Drawing.Point(4, 43);
-            this.blockDataGrid.MultiSelect = false;
-            this.blockDataGrid.Name = "blockDataGrid";
-            this.blockDataGrid.ReadOnly = true;
-            this.blockDataGrid.RowHeadersVisible = false;
-            this.blockDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.blockDataGrid.Size = new System.Drawing.Size(312, 514);
-            this.blockDataGrid.StandardTab = true;
-            this.blockDataGrid.SelectionChanged += new System.EventHandler(blockDataGrid_Select);
-
-            // 
-            // blockDataGridLabel
-            // 
-            this.blockDataGridLabel.Location = new System.Drawing.Point(4, 27);
-            this.blockDataGridLabel.Name = "blockDataGridLabel";
-            this.blockDataGridLabel.Text = "Blocks";
-
-            // 
-            // editMenu
-            // 
-            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.itemsEditMenuItem,
-                this.materialsEditMenuItem });
-            this.editMenu.Name = "editMenu";
-            this.editMenu.Text = "&Edit";
-
-            // 
-            // exitFileMenuItem
-            // 
-            this.exitFileMenuItem.Name = "exitFileMenuItem";
-            this.exitFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q;
-            this.exitFileMenuItem.Text = "E&xit";
-            this.exitFileMenuItem.Click += new System.EventHandler(this.exitFileMenuItem_Click);
-            
-            // 
-            // exportFileMenuItem
-            // 
-            this.exportFileMenuItem.Name = "exportFileMenuItem";
-            this.exportFileMenuItem.Text = "&Export";
-            this.exportFileMenuItem.Click += new System.EventHandler(this.exportFileMenuItem_Click);
-
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileMenu,
+            this.editMenu});
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.mainMenu.Size = new System.Drawing.Size(880, 24);
+            this.mainMenu.TabIndex = 3;
             // 
             // fileMenu
             // 
-            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.openFileMenuItem,
-                this.saveFileMenuItem, this.fileMenuSeparator1, this.exportFileMenuItem, this.fileMenuSeparator2,
-                this.exitFileMenuItem });
+            this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileMenuOpenItem,
+            this.fileMenuSaveItem,
+            this.fileMenuSeparator1,
+            this.fileMenuExportItem,
+            this.fileMenuSeparator2,
+            this.fileMenuExitItem});
             this.fileMenu.Name = "fileMenu";
+            this.fileMenu.Size = new System.Drawing.Size(37, 20);
             this.fileMenu.Text = "&File";
-
+            // 
+            // fileMenuOpenItem
+            // 
+            this.fileMenuOpenItem.Name = "fileMenuOpenItem";
+            this.fileMenuOpenItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.fileMenuOpenItem.Size = new System.Drawing.Size(146, 22);
+            this.fileMenuOpenItem.Text = "&Open";
+            this.fileMenuOpenItem.Click += new System.EventHandler(this.openFileMenuItem_Click);
+            // 
+            // fileMenuSaveItem
+            // 
+            this.fileMenuSaveItem.Name = "fileMenuSaveItem";
+            this.fileMenuSaveItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.fileMenuSaveItem.Size = new System.Drawing.Size(146, 22);
+            this.fileMenuSaveItem.Text = "&Save";
+            this.fileMenuSaveItem.Click += new System.EventHandler(this.saveFileMenuItem_Click);
             // 
             // fileMenuSeparator1
             // 
             this.fileMenuSeparator1.Name = "fileMenuSeparator1";
-
+            this.fileMenuSeparator1.Size = new System.Drawing.Size(143, 6);
+            // 
+            // fileMenuExportItem
+            // 
+            this.fileMenuExportItem.Name = "fileMenuExportItem";
+            this.fileMenuExportItem.Size = new System.Drawing.Size(146, 22);
+            this.fileMenuExportItem.Text = "&Export";
+            this.fileMenuExportItem.Click += new System.EventHandler(this.exportFileMenuItem_Click);
             // 
             // fileMenuSeparator2
             // 
             this.fileMenuSeparator2.Name = "fileMenuSeparator2";
-
+            this.fileMenuSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
-            // itemsEditMenuItem
+            // fileMenuExitItem
             // 
-            this.itemsEditMenuItem.Name = "itemsEditMenuItem";
-            this.itemsEditMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I;
-            this.itemsEditMenuItem.Text = "&Items";
-
+            this.fileMenuExitItem.Name = "fileMenuExitItem";
+            this.fileMenuExitItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.fileMenuExitItem.Size = new System.Drawing.Size(146, 22);
+            this.fileMenuExitItem.Text = "E&xit";
+            this.fileMenuExitItem.Click += new System.EventHandler(this.exitFileMenuItem_Click);
             // 
-            // mainMenu
+            // editMenu
             // 
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.fileMenu,
-                this.editMenu });
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
-            this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(884, 24);
-
+            this.editMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editMenuGroupsItem,
+            this.editMenuItemsItem,
+            this.editMenuMaterialsItem,
+            this.editMenuRecipesItem});
+            this.editMenu.Name = "editMenu";
+            this.editMenu.Size = new System.Drawing.Size(39, 20);
+            this.editMenu.Text = "&Edit";
             // 
-            // materialsEditMenuItem
+            // editMenuGroupsItem
             // 
-            this.materialsEditMenuItem.Name = "materialsEditMenuItem";
-            this.materialsEditMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M;
-            this.materialsEditMenuItem.Text = "&Materials";
-
+            this.editMenuGroupsItem.Name = "editMenuGroupsItem";
+            this.editMenuGroupsItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.G)));
+            this.editMenuGroupsItem.Size = new System.Drawing.Size(163, 22);
+            this.editMenuGroupsItem.Text = "&Groups";
             // 
-            // openFileMenuItem
+            // editMenuItemsItem
             // 
-            this.openFileMenuItem.Name = "openFileMenuItem";
-            this.openFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O;
-            this.openFileMenuItem.Text = "&Open";
-            this.openFileMenuItem.Click += new System.EventHandler(this.openFileMenuItem_Click);
-
+            this.editMenuItemsItem.Name = "editMenuItemsItem";
+            this.editMenuItemsItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
+            this.editMenuItemsItem.Size = new System.Drawing.Size(163, 22);
+            this.editMenuItemsItem.Text = "&Items";
             // 
-            // otherPropertiesBox
+            // editMenuMaterialsItem
             // 
-            this.otherPropertiesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
-                System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left |
-                System.Windows.Forms.AnchorStyles.Right));
-            this.otherPropertiesBox.IntegralHeight = false;
-            this.otherPropertiesBox.Location = new System.Drawing.Point(320, 340);
-            this.otherPropertiesBox.Name = "otherPropertiesBox";
-            this.otherPropertiesBox.Size = new System.Drawing.Size(300, 217);
-
+            this.editMenuMaterialsItem.Name = "editMenuMaterialsItem";
+            this.editMenuMaterialsItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M)));
+            this.editMenuMaterialsItem.Size = new System.Drawing.Size(163, 22);
+            this.editMenuMaterialsItem.Text = "&Materials";
             // 
-            // otherPropertiesLabel
+            // editMenuRecipesItem
             // 
-            this.otherPropertiesLabel.Location = new System.Drawing.Point(320, 324);
-            this.otherPropertiesLabel.Name = "otherPropertiesLabel";
-            this.otherPropertiesLabel.Text = "Other Properties";
-
+            this.editMenuRecipesItem.Name = "editMenuRecipesItem";
+            this.editMenuRecipesItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+            this.editMenuRecipesItem.Size = new System.Drawing.Size(163, 22);
+            this.editMenuRecipesItem.Text = "&Recipes";
             // 
-            // propertiesBox
+            // blockListLabel
             // 
-            this.propertiesBox.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top |
-                System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
-            this.propertiesBox.Location = new System.Drawing.Point(320, 27);
-            this.propertiesBox.Name = "propertiesBox";
-            this.propertiesBox.Size = new System.Drawing.Size(300, 294);
-            this.propertiesBox.Text = "Common Properties";
-
+            this.blockListLabel.Location = new System.Drawing.Point(4, 27);
+            this.blockListLabel.Name = "blockListLabel";
+            this.blockListLabel.Size = new System.Drawing.Size(100, 23);
+            this.blockListLabel.TabIndex = 2;
+            this.blockListLabel.Text = "Blocks";
             // 
-            // saveFileMenuItem
+            // blockList
             // 
-            this.saveFileMenuItem.Name = "saveFileMenuItem";
-            this.saveFileMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S;
-            this.saveFileMenuItem.Text = "&Save";
-            this.saveFileMenuItem.Click += new System.EventHandler(this.saveFileMenuItem_Click);
-
+            this.blockList.AllowUserToAddRows = false;
+            this.blockList.AllowUserToDeleteRows = false;
+            this.blockList.AllowUserToResizeColumns = false;
+            this.blockList.AllowUserToResizeRows = false;
+            this.blockList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.blockList.AutoGenerateColumns = false;
+            this.blockList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.blockList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.blockList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.blockList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.blockList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.blockListIdColumn,
+            this.blockListNameColumn});
+            this.blockList.DataSource = this.blockBindingSource;
+            this.blockList.GridColor = System.Drawing.Color.LightGray;
+            this.blockList.Location = new System.Drawing.Point(4, 43);
+            this.blockList.MultiSelect = false;
+            this.blockList.Name = "blockList";
+            this.blockList.RowHeadersVisible = false;
+            this.blockList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.blockList.Size = new System.Drawing.Size(312, 509);
+            this.blockList.StandardTab = true;
+            this.blockList.TabIndex = 1;
+            this.blockList.SelectionChanged += new System.EventHandler(this.blockDataGrid_Select);
+            // 
+            // blockListIdColumn
+            // 
+            this.blockListIdColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.blockListIdColumn.DataPropertyName = "id";
+            this.blockListIdColumn.HeaderText = "ID";
+            this.blockListIdColumn.MinimumWidth = 45;
+            this.blockListIdColumn.Name = "blockListIdColumn";
+            this.blockListIdColumn.ReadOnly = true;
+            this.blockListIdColumn.Width = 45;
+            // 
+            // blockListNameColumn
+            // 
+            this.blockListNameColumn.DataPropertyName = "name";
+            this.blockListNameColumn.HeaderText = "Name";
+            this.blockListNameColumn.Name = "blockListNameColumn";
+            this.blockListNameColumn.ReadOnly = true;
+            // 
+            // propertiesLabel
+            // 
+            this.propertiesLabel.Location = new System.Drawing.Point(320, 27);
+            this.propertiesLabel.Name = "propertiesLabel";
+            this.propertiesLabel.Size = new System.Drawing.Size(100, 23);
+            this.propertiesLabel.TabIndex = 5;
+            this.propertiesLabel.Text = "Properties";
+            // 
+            // propertiesList
+            // 
+            this.propertiesList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertiesList.IntegralHeight = false;
+            this.propertiesList.Location = new System.Drawing.Point(320, 43);
+            this.propertiesList.Name = "propertiesList";
+            this.propertiesList.Size = new System.Drawing.Size(300, 509);
+            this.propertiesList.TabIndex = 4;
+            // 
+            // actionsGroup
+            // 
+            this.actionsGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.actionsGroup.Location = new System.Drawing.Point(624, 27);
+            this.actionsGroup.Name = "actionsGroup";
+            this.actionsGroup.Size = new System.Drawing.Size(252, 525);
+            this.actionsGroup.TabIndex = 0;
+            this.actionsGroup.TabStop = false;
+            this.actionsGroup.Text = "Actions";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 560);
-            this.Controls.Add(this.actionsBox);
-            this.Controls.Add(this.blockDataGrid);
-            this.Controls.Add(this.blockDataGridLabel);
+            this.ClientSize = new System.Drawing.Size(880, 556);
             this.Controls.Add(this.mainMenu);
-            this.Controls.Add(this.otherPropertiesBox);
-            this.Controls.Add(this.otherPropertiesLabel);
-            this.Controls.Add(this.propertiesBox);
+            this.Controls.Add(this.blockList);
+            this.Controls.Add(this.blockListLabel);
+            this.Controls.Add(this.propertiesList);
+            this.Controls.Add(this.propertiesLabel);
+            this.Controls.Add(this.actionsGroup);
             this.MainMenuStrip = this.mainMenu;
-            this.MinimumSize = new System.Drawing.Size(896, 600);
+            this.MinimumSize = new System.Drawing.Size(896, 595);
             this.Name = "MainForm";
             this.Text = "Balance Tool";
-            
-            ((System.ComponentModel.ISupportInitialize)(this.blockDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blocks)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blockBindingSource)).EndInit();
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blockList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox actionsBox;
-        private System.Data.DataSet blockData;
-        private System.Windows.Forms.DataGridView blockDataGrid;
-        private System.Windows.Forms.Label blockDataGridLabel;
-        private System.Windows.Forms.ToolStripMenuItem editMenu;
-        private System.Windows.Forms.ToolStripMenuItem exitFileMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportFileMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fileMenu;
-        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator1;
-        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem itemsEditMenuItem;
+        private blocks blocks;
+        private System.Windows.Forms.BindingSource blockBindingSource;
         private System.Windows.Forms.MenuStrip mainMenu;
-        private System.Windows.Forms.ToolStripMenuItem materialsEditMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileMenuItem;
-        private System.Windows.Forms.ListBox otherPropertiesBox;
-        private System.Windows.Forms.Label otherPropertiesLabel;
-        private System.Windows.Forms.GroupBox propertiesBox;
-        private System.Windows.Forms.ToolStripMenuItem saveFileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileMenu;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuOpenItem;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuSaveItem;
+        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuExportItem;
+        private System.Windows.Forms.ToolStripSeparator fileMenuSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuExitItem;
+        private System.Windows.Forms.ToolStripMenuItem editMenu;
+        private System.Windows.Forms.ToolStripMenuItem editMenuGroupsItem;
+        private System.Windows.Forms.ToolStripMenuItem editMenuItemsItem;
+        private System.Windows.Forms.ToolStripMenuItem editMenuMaterialsItem;
+        private System.Windows.Forms.ToolStripMenuItem editMenuRecipesItem;
+        private System.Windows.Forms.Label blockListLabel;
+        private System.Windows.Forms.DataGridView blockList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn blockListIdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn blockListNameColumn;
+        private System.Windows.Forms.Label propertiesLabel;
+        private System.Windows.Forms.ListBox propertiesList;
+        private System.Windows.Forms.GroupBox actionsGroup;
     }
 }
 
